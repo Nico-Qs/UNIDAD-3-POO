@@ -18,3 +18,5 @@ class Ramo:
     def flores_porTam(self):
         for i in range(len(self.__flores)):
             print(self.__flores[i])
+    def getFlores(self):
+        return self.__flores

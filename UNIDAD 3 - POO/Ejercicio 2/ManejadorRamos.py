@@ -7,9 +7,9 @@ class ManejadorRamos:
         self.__lista=[]
         self.__instancia=ManejaFlores()
     def agregar_Venta(self):
-        tamaños=["Pequeño","Mediano","Grande"]
+        tamanos=["Pequeño","Mediano","Grande"]
         t=int(input("Ingrese un tamaño de ramo: 1 - Pequeño, 2 - Mediano, 3 - Grande: "))
-        R=Ramo(tamaños[t-1])
+        R=Ramo(tamanos[t-1])
         self.__instancia.mostrar_flores()
         F = int(input("Ingrese un numero de flor 0 para terminar: "))
         while F != 0:
@@ -21,25 +21,20 @@ class ManejadorRamos:
         self.__lista.append(R)
     def calcula_Max(self):
         for i in range(len(self.__lista)):
-            Maximos = [0] * self.__instancia.get_Ct()
-            for j in range(len(Maximos)):
-                ct=self.__lista[i].ct_flores(j+1)
-                Maximos[j]=ct
-            Maxx=max(Maximos)
-            print("----5 Flores mas pedidas para el ramo {} de tamaño: {}----".format(i+1,self.__lista[i].getTam()))
-            for k in range(len(Maximos)):
-                if Maximos[k] == Maxx:
-                    self.__instancia.mostrar_flor(k)
-        """
-        #Itera solo hasta las 5 flores maximas
-        i=0
-        j=0
-        while i<len(Maximos) and j<=5:
-            if Maximos[i] == max:
-                print("--Nombre: {}--".format(self.__instancia.mostrar_flor(i)))
-                j+=1
-            i+=1
-        """
+            flores=self.__lista[i].getFlores()
+            datos={}
+            for flor in flores:
+                if flor.getNom() not in datos:
+                    datos[flor.getNom()]=1
+                else:
+                    datos[flor.getNom()]+=1
+            datos=sorted(datos.items(),key=lambda x:x[1],reverse=True)
+            try:
+                print("----5 Flores mas pedidas para el ramo {} de tamaño: {}----".format(i+1,self.__lista[i].getTam()))
+                for i in range(5):
+                    print("Top: {}, Nombre: {}, Cantidad: {}".format(i+1,datos[i][0],datos[i][1]))
+            except Exception:
+                print("Al parecer no hay 5 tipos de flores distintas en este ramo, por lo tanto no es posible realizar el top de manera correcta")
     def tipoDeRamo(self):
         tip=input("Ingrese un tipo de ramo(Pequeño-Mediano-Grande): ").lower()
         print("Flores vendidas en los ramos de tipo: {}".format(tip))
