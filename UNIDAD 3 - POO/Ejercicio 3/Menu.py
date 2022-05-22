@@ -20,7 +20,7 @@ class Menu:
         print("2 - Consultar jugadores Contratados")
         print("3 - Consultar Contratos que vencen dentro de 6 meses")
         print("4 - Obtener importe de contratos")
-        print("5 - Guardar Contratos")
+        print("5 - Guardar Contratos\n")
 
     def apartado_1(self):
         dni_jugador=input("Ingrese DNI del jugador: ")
@@ -37,6 +37,7 @@ class Menu:
                 contrato=Contrato(fecha_inicio,fecha_fin,monto_men,jugador,equipo)
                 self.__manejaContratos.agregarContrato(contrato)
                 print("Contrato generado de manera correcta")
+                os.system('cls')
             else:
                 print("Al parecer intenta añadir un contrato en el que incluye a un Jugador y un Equipo, que ya se encuentran vinculados previamente por un contrato")
 
@@ -62,18 +63,25 @@ class Menu:
             equipo = self.__manejaEquipos.getEquipo(indice_equipo)
             self.__manejaContratos.importe_de_contratos(equipo)
     def menuOp(self):
+        os.system('cls')
         self.mostrarOp()
         op=int(input("Ingrese una opcion: 0 para terminar: "))
         while op != 0:
+            os.system('cls')
             if op == 1:
+                #os.system('cls')
                 self.apartado_1()
             if op == 2:
+                #os.system('cls')
                 self.apartado_2()
             if op == 3:
+                #os.system('cls')
                 self.apartado_3()
             if op == 4:
+                #os.system('cls')
                 self.apartado_4()
             if op == 5:
+                #os.system('cls')
                 self.__manejaContratos.crear_archivo()
             self.mostrarOp()
             op = int(input("Ingrese una opcion: 0 para terminar: "))

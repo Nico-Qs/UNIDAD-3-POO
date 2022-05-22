@@ -27,12 +27,13 @@ class ManejadorContratos:
 
     def verificar_si_hay_contrato(self,jugador,equipo):
         band=False
+        retorno=False
         i=0
         while i<self.__cantidad and not band:
             if self.__contratos[i].getJugador().getNombre() == jugador.getNombre() and self.__contratos[i].getEquipo().getNombre() == equipo.getNombre():
-                band=True
+                retorno=True
             i+=1
-        return band
+        return retorno
 
     def es_vigente(self,contrato):
         band=False
@@ -85,7 +86,7 @@ class ManejadorContratos:
             if team.getNombre() == equipo.getNombre():
                 if self.es_vigente(self.__contratos[i]):
                     total+=self.__contratos[i].getPago()
-        print("El equipo, {} paga mensualmente a sus jugadores en conceptos de contrato una cantidad de {} pesos".format(equipo.getNombre(),total))
+        print("El equipo, {} paga mensualmente a sus jugadores en concepto de contratos una cantidad de {} pesos".format(equipo.getNombre(),total))
 
     def crear_archivo(self):
         with open('Contratos.csv', 'w') as archivo:

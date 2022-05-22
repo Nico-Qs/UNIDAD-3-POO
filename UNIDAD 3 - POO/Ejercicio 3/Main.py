@@ -39,4 +39,5 @@ Club Atletico Newell's Old Boys
 10/02/2020
 10/02/2023
 170000
+
 """
