@@ -3,25 +3,15 @@ from ClaseEquipo import Equipo
 import csv
 class ManejadorEquipos:
     __equipos : np.array
-    __cantidad : int
-    __dimension : int
-    __incremento : int
 
-    def __init__(self,dim=10,inc=2):
-        self.__equipos=np.empty(dim,dtype=Equipo)
-        self.__dimension=dim
-        self.__incremento=inc
-        self.__cantidad=0
+    def __init__(self):
+        self.__equipos=np.empty(0,dtype=Equipo)
 
     def agregarEquipo(self,equipo):
-        if self.__cantidad == self.__dimension:
-            self.__dimension+=self.__incremento
-            self.__equipos.resize(self.__dimension)
-        self.__equipos[self.__cantidad]=equipo
-        self.__cantidad+=1
+        self.__equipos=np.append(self.__equipos,equipo)
 
     def mostrarEquipos(self):
-        for i in range(self.__cantidad):
+        for i in range(len(self.__equipos)):
             print(self.__equipos[i])
 
     def cargarEquipos(self):
@@ -39,13 +29,13 @@ class ManejadorEquipos:
         i=0
         pos=-1
         band=False
-        while i<self.__cantidad and not band:
+        while i<len(self.__equipos) and not band:
             equipo=self.__equipos[i]
             if equipo.getNombre() == nombre:
                 pos=i
                 band=True
             i+=1
-        if i>self.__cantidad:
+        if i>len(self.__equipos):
             print("Equipo '{}' no encontrado...".format(nombre))
         return pos
 

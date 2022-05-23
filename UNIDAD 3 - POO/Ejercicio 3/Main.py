@@ -39,5 +39,10 @@ Club Atletico Newell's Old Boys
 10/02/2020
 10/02/2023
 170000
-
+1
+88888888
+Club Atletico San Lorenzo de Almagro
+15/08/2020
+15/10/2022
+165000
 """

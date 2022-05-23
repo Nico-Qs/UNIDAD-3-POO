@@ -3,33 +3,23 @@ import datetime
 from ClaseContrato import Contrato
 import numpy as np
 class ManejadorContratos:
-    __cantidad: int
     __contratos: np.array
-    __dimension: int
-    __incremento: int
 
-    def __init__(self, dim=1, inc=1):
-        self.__contratos = np.empty(dim, dtype=Contrato)
-        self.__dimension = dim
-        self.__incremento = inc
-        self.__cantidad = 0
+    def __init__(self):
+        self.__contratos = np.empty(0, dtype=Contrato)
 
     def agregarContrato(self, contrato):
-        if self.__cantidad == self.__dimension:
-            self.__dimension += self.__incremento
-            self.__contratos.resize(self.__dimension)
-        self.__contratos[self.__cantidad] = contrato
-        self.__cantidad += 1
+        self.__contratos=np.append(self.__contratos,contrato)
 
     def mostrarcontratos(self):
-        for i in range(self.__cantidad):
+        for i in range(len(self.__contratos)):
             print(self.__contratos[i])
 
     def verificar_si_hay_contrato(self,jugador,equipo):
         band=False
         retorno=False
         i=0
-        while i<self.__cantidad and not band:
+        while i<len(self.__contratos) and not band:
             if self.__contratos[i].getJugador().getNombre() == jugador.getNombre() and self.__contratos[i].getEquipo().getNombre() == equipo.getNombre():
                 retorno=True
             i+=1
@@ -47,7 +37,7 @@ class ManejadorContratos:
         i = 0
         pos = -1
         band=False
-        while i < self.__cantidad and not band:
+        while i < len(self.__contratos) and not band:
             player=self.__contratos[i].getJugador()
             if player.getDNI() == jugador.getDNI():
                 pos=i
@@ -59,14 +49,13 @@ class ManejadorContratos:
         vigente = self.es_vigente(self.__contratos[b])
         if b!=-1 and vigente:
             equipo=self.__contratos[b].getEquipo()
-            print("El jugador buscado posee un contrato vigente")
-            print("Jugador: {}, Equipo: {}, Fecha de finalizacion de contrato: {}".format(jugador.getNombre(),equipo.getNombre(),self.__contratos[b].getFechafin()))
+            print("El jugador buscado posee un contrato vigente.\nJugador: {}, Equipo: {}, Fecha de finalizacion de contrato: {}".format(jugador.getNombre(),equipo.getNombre(),self.__contratos[b].getFechafin()))
         else:
             print("El jugador ingresado no posee un contrato vigente")
 
     def consulta_contratos_de_un_equipo(self,equipo):
         band=False
-        for i in range(self.__cantidad):
+        for i in range(len(self.__contratos)):
             fecha_actual=datetime.date.today()
             vence_6_meses=fecha_actual + datetime.timedelta(days=365/2)
             fecha_fin=self.__contratos[i].getFechafin()
@@ -81,7 +70,7 @@ class ManejadorContratos:
 
     def importe_de_contratos(self,equipo):
         total=0.0
-        for i in range (self.__cantidad):
+        for i in range (len(self.__contratos)):
             team=self.__contratos[i].getEquipo()
             if team.getNombre() == equipo.getNombre():
                 if self.es_vigente(self.__contratos[i]):
