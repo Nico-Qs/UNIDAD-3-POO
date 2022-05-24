@@ -5,10 +5,10 @@ class ManejadorEquipos:
     __equipos : np.array
 
     def __init__(self):
-        self.__equipos=np.empty(0,dtype=Equipo)
+        self.__equipos = np.empty(0,dtype=Equipo)
 
     def agregarEquipo(self,equipo):
-        self.__equipos=np.append(self.__equipos,equipo)
+        self.__equipos = np.append(self.__equipos,equipo)
 
     def mostrarEquipos(self):
         for i in range(len(self.__equipos)):
