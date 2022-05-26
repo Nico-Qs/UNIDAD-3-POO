@@ -16,3 +16,7 @@ class CalefactorGas(Calefactor):
 
     def getCalorias(self):
         return self.__calorias
+
+    def getTipoG(self):
+        cadena="Calefactor a Gas"
+        return cadena

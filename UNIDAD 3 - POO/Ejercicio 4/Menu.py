@@ -15,10 +15,14 @@ class Menu:
         op=int(input("Ingrese una opcion 0 para terminar: "))
         while op != 0:
             if op == 1:
-                self.__manejaCalefactores.item_1()
+                c1 = int(input("Ingrese el costo por metro al cubo: "))
+                h1 = int(input("Ingrese la cantidad que se estima que consumira por hora: "))
+                self.__manejaCalefactores.opciones(op,c1,h1)
             elif op == 2:
-                self.__manejaCalefactores.item_2()
+                c2 = int(input("Ingrese el costo por metro al cubo: "))
+                h2 = int(input("Ingrese la cantidad que se estima que consumira por hora: "))
+                self.__manejaCalefactores.opciones(op,c2,h2)
             elif op == 3:
-                print()
+                self.__manejaCalefactores.opciones(op,c1,h1)
             self.mostrar()
             op = int(input("Ingrese una opcion 0 para terminar: "))

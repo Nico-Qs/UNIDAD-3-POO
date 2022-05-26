@@ -30,9 +30,7 @@ class ManejadorCalefactores:
                 self.agregarCalefactor(C)
             archivo.close()
 
-    def item_1(self):
-        c=int(input("Ingrese el costo por metro al cubo: "))
-        h=int(input("Ingrese la cantidad que se estima que consumira por hora: "))
+    def item_1(self,c,h):
         pos=-1
         min=99999999
         for i in range(len(self.__calefactores)):
@@ -41,10 +39,8 @@ class ManejadorCalefactores:
                 if costo < min:
                     min=costo
                     pos=i
-        print("El calefactor a gas de menor consumo es el de marca {} y modelo {}.".format(self.__calefactores[pos].getMarca(),self.__calefactores[pos].getModelo()))
-    def item_2(self):
-        c=int(input("Ingrese el costo por metro al cubo: "))
-        h=int(input("Ingrese la cantidad que se estima que consumira por hora: "))
+        return pos
+    def item_2(self,c,h):
         pos=-1
         min=99999999
         for i in range(len(self.__calefactores)):
@@ -53,4 +49,37 @@ class ManejadorCalefactores:
                 if costo < min:
                     min=costo
                     pos=i
-        print("El calefactor electrico de menor consumo es el de marca {} y modelo {}.".format(self.__calefactores[pos].getMarca(),self.__calefactores[pos].getModelo()))
+        return pos
+    def item_3(self,c,h):
+        pos1=-1
+        pos2=-1
+        min1=9999999
+        min2=9999999
+        costo1=None
+        costo2=None
+        for i in range(len(self.__calefactores)):
+            if type(self.__calefactores[i]) is CalefactorElectrico:
+                costo1=(self.__calefactores[i].getPotencia()/1000)*c*h
+                if costo1 < min1:
+                    min1=costo1
+                    pos1=i
+            elif type(self.__calefactores[i]) is CalefactorGas:
+                costo2 = (self.__calefactores[i].getCalorias() / 1000) * c * h
+                if costo2 < min2:
+                    min2 = costo2
+                    pos2 = i
+        if costo1 < costo2:
+            print("Tipo: {}, Calefactor: {}".format(self.__calefactores[pos1].getTipoE(),self.__calefactores[pos1]))
+        else:
+            print("Tipo: {}, Calefactor: {}".format(self.__calefactores[pos2].getTipoG(), self.__calefactores[pos2]))
+    def opciones(self,op,c,h):
+        if op == 1:
+            posgas=self.item_1(c,h)
+            print("El calefactor a gas de menor consumo es el de marca {} y modelo {}.".format(self.__calefactores[posgas].getMarca(),self.__calefactores[posgas].getModelo()))
+
+        elif op == 2:
+            poselec=self.item_2(c,h)
+            print("El calefactor electrico de menor consumo es el de marca {} y modelo {}.".format(self.__calefactores[poselec].getMarca(), self.__calefactores[poselec].getModelo()))
+
+        elif op == 3:
+            self.item_3(c,h)

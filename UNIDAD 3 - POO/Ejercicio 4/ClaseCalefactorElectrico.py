@@ -10,3 +10,7 @@ class CalefactorElectrico(Calefactor):
         return ("Calefactor electrico, Marca: {}, Modelo: {}, Potencia: {}".format(super().getMarca(),super().getModelo(),self.__potencia))
     def getPotencia(self):
         return self.__potencia
+
+    def getTipoE(self):
+        cadena = "Calefactor a Gas"
+        return cadena
