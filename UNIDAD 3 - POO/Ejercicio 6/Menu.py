@@ -40,6 +40,7 @@ class Menu:
         self.mostrar()
         op=int(input("Ingrese una opcion 0 para terminar: "))
         while op != 0:
+            os.system('cls')
             if op == 1:
                 self.cargaJson(jsonF)
 
@@ -65,3 +66,4 @@ class Menu:
                 self.__claseLista.almacenaJson(jsonF)
             self.mostrar()
             op = int(input("Ingrese una opcion 0 para terminar: "))
+            os.system('cls')
