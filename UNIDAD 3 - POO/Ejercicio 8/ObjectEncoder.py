@@ -31,6 +31,17 @@ class ObjectEncoder(object):
                     L = class_(**atributos)
                     lista.insertarFinal(L)
 
+    def cargaJson(self):
+        objeto1 = Docente(cuil="20-3454506-8", apellido="Perez", nombre="Nicolas", sueldo=89000, anti=3,carrera="LCC", cargo="JTP", catedra="Sistemas de Informacion")
+        objeto2 = Investigador(cuil="15-324235-5", apellido="Dominguez", nombre="Juan", sueldo=120000, anti=2,area="Computacional", tipo="Cientifica")
+        objeto3 = PersonalApoyo(cuil="12-456543-4", apellido="Castro", nombre="Maria", sueldo=140000, anti=2,categoria="I")
+        objeto4 = DocenteInvestigador(programa="I", importe=25000, cuil="18-3446706-8", apellido="Lopez",nombre="Marcos", sueldo=89000, anti=3, catedra="EyFCI", carrera="LCC",cargo="Jefe de Catedra", area="Estructuras", tipo="Teorica")
+        d = objeto1.toJson()
+        d1 = objeto2.toJson()
+        d2 = objeto3.toJson()
+        d3 = objeto4.toJson()
+        lista = [d, d1, d2, d3]
+        self.guardarJSONArchivo(lista, "Personal.json")
     def retornarObjeto(self, tipo):
         if tipo == "docente":
             objeto = Docente(cuil="15-1823791-2", apellido="Ortiz", nombre="Juan", sueldo=50000, anti=10, carrera="LSI",cargo="exclusivo", catedra="Programacion Orientada a Objetos")

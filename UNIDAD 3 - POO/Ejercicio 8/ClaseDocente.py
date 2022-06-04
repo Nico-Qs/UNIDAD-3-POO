@@ -3,11 +3,13 @@ class Docente(Personal):
     __carrera: str
     __cargo: str
     __catedra: str
+    __porcentaje: float
 
     def __init__(self, **kwargs):
         self.__carrera = kwargs["carrera"]
         self.__cargo = kwargs["cargo"]
         self.__catedra = kwargs["catedra"]
+        self.__porcentaje = self.obtenerPorcentaje()
         super().__init__(**kwargs)
 
 
@@ -23,19 +25,28 @@ class Docente(Personal):
     def getCatedra(self):
         return self.__catedra
 
-    def calculaSueldo(self):
-        total = self.getSueldo()
-        total = total + (total * self.getAnti() / 100)
+    def obtenerPorcentaje(self):
+        porcent = 0
         if self.__cargo == "simple":
-            total = total + (total * 0.10)
+            porcent = 0.10
         elif self.__cargo == "semiexclusivo":
-            total = total + (total * 0.20)
+            porcent = 0.20
         elif self.__cargo == "exclusivo":
-            total = total + (total * 0.30)
+            porcent = 0.30
+        return porcent
+
+    def calculaSueldo(self):
+        sueldo = self.getSueldo()
+        total = sueldo + (sueldo * self.getAnti() / 100) + (sueldo * self.__porcentaje)
         self.setSueldo(total)
 
+    def setPorcentaje(self,por: float):
+        self.__porcentaje = por
+
     def getSueldoDocente(self):
+        self.calculaSueldo()
         return self.getSueldo()
+
     def toJson(self):
             d = dict(
                 __class__=self.__class__.__name__,

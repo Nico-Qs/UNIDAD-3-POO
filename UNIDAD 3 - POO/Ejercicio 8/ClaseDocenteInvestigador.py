@@ -23,6 +23,9 @@ class DocenteInvestigador(Docente,Investigador):
         total += self.__importeEx
         self.setSueldo(total)
 
+    def setImporteExtr(self,valor : float):
+        self.__importeEx = valor
+
     def toJson(self):
             d = dict(
                 __class__=self.__class__.__name__,

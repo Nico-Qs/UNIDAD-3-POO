@@ -3,7 +3,11 @@ from zope.interface import implementer
 from ClaseDocenteInvestigador import DocenteInvestigador
 from ClaseInvestigador import Investigador
 from ClaseInterfaz import Interfaz
+from IDirector import IDirector
+from ITesorero import ITesorero
 @implementer(Interfaz)
+@implementer(IDirector)
+@implementer(ITesorero)
 class Lista:
     __comienzo = None
     __actual = None
@@ -98,7 +102,7 @@ class Lista:
             cabeza = cabeza.getSiguiente()
         lista = sorted(lista)
         for elemento in lista:
-            print("Nombre: {}, Apellido: {}, Carrera: {}".format(elemento.getNombre(),elemento.getApellido(),elemento.getCarrera()))
+            print("Apellido y Nombre: {}, Carrera: {}".format(elemento.getApellido() + " " + elemento.getNombre(),elemento.getCarrera()))
 
     def cuentaAgenteInvestigadores(self):
         area = input("Ingrese el area de investigacion: ")
@@ -151,5 +155,68 @@ class Lista:
             dicc = dato.toJson()
             lista.append(dicc)
             cabeza = cabeza.getSiguiente()
-        objectEncoder.guardarJSONArchivo(lista, "NuevoPersonal.json")
+        objectEncoder.guardarJSONArchivo(lista, "NuevosAparatos.json")
         print("--Archivo guardado correctamente--")
+
+    def modificarBasico(self, cuil, nuevoBasico):
+        cabeza = self.__comienzo
+        band = False
+        while cabeza is not None and band is False:
+            if cabeza.getDato().getCuil() == cuil:
+                cabeza.getDato().setSueldo(nuevoBasico)
+                print("Sueldo basico modificado correctamente")
+                band = True
+            cabeza = cabeza.getSiguiente()
+        if band == False:
+            print("Agente no encontrado o CUIL ingresado de manera incorrecta")
+
+    def modificarPorcentajeporcargo(self,cuil,nuevoPorcentaje):
+        cabeza = self.__comienzo
+        band = False
+        while cabeza is not None and band is False:
+            if cabeza.getDato().getCuil() == cuil and cabeza.getDato().getTipoAgente().lower() == "docente":
+                cabeza.getDato().setPorcentaje(nuevoPorcentaje)
+                print("Porcentaje modificado correctamente")
+                band = True
+            elif cabeza.getDato().getCuil() == cuil and cabeza.getDato().getTipoAgente().lower() == "personalapoyo":
+                cabeza.getDato().setPorcentaje(nuevoPorcentaje)
+                print("Porcentaje modificado correctamente")
+                band = True
+            cabeza = cabeza.getSiguiente()
+        if band == False:
+            print("Agente no encontrado o CUIL ingresado de manera incorrecta")
+    """
+    def modificarPorcentajeporcategoria(self,cuil, nuevoPorcentaje):
+        cabeza = self.__comienzo
+        band = False
+        while cabeza is not None and band is False:
+            if cabeza.getDato().getCuil() == cuil and cabeza.getDato().getTipoAgente().lower() == "personalapoyo":
+                cabeza.getDato().setPorcentaje(nuevoPorcentaje)
+                print("Porcentaje modificado correctamente")
+                band = True
+            cabeza = cabeza.getSiguiente()
+        if band == False:
+            print("Agente no encontrado o DNI ingresado de manera incorrecta")
+    """
+    def modificarImporteExtra(self, cuil, nuevoImporteExtra):
+        cabeza = self.__comienzo
+        band = False
+        while cabeza is not None and band is False:
+            if cabeza.getDato().getCuil() == cuil and cabeza.getDato().getTipoAgente().lower() == "docenteinvestigador":
+                cabeza.getDato().setImporteExtr(nuevoImporteExtra)
+                print("Importe extra modificado correctamente")
+                band = True
+            cabeza = cabeza.getSiguiente()
+        if band == False:
+            print("Agente no encontrado o CUIL ingresado de manera incorrecta")
+
+    def gastosSueldoPorEmpleado (self, cuil):
+        cabeza = self.__comienzo
+        band = False
+        while cabeza is not None and band is False:
+            if cabeza.getDato().getCuil() == cuil:
+                print("Empleado: {}, Sueldo: {}".format(cabeza.getDato().getApellido() + " " + cabeza.getDato().getNombre(),cabeza.getDato().getSueldo()))
+                band = True
+            cabeza = cabeza.getSiguiente()
+        if band == False:
+            print("Agente no encontrado o CUIL ingresado de manera incorrecta")
